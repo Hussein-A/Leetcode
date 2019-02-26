@@ -183,6 +183,104 @@ bool isValid(std::string s) {
 };
 */
 
+/*
+Problem 155. Min Stack
+Difficulty: Easy
+Description:  Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+    push(x) -- Push element x onto stack.
+    pop() -- Removes the element on top of the stack.
+    top() -- Get the top element.
+    getMin() -- Retrieve the minimum element in the stack.
+
+class MinStack {
+public:
+MinStack() {
+
+}
+
+void push(int x) {
+	if (ints.size() == 0) min = x;
+	else if (x < min) min = x;
+	ints.push_back(x);
+}
+
+void pop() {
+	if (min == *--ints.end()) {
+		//find the new min
+		ints.erase(--ints.end());
+		if (ints.size() == 0) {}
+		else {
+			list<int> temp = ints;
+			temp.sort();
+			min = *temp.begin();
+		}
+	}
+	else ints.erase(--ints.end());
+	cout << "Size is now: " << ints.size() << "\n";
+}
+
+int top() {
+	return *(--ints.end());
+}
+
+int getMin() {
+	return min;
+}
+private:
+	int min{ INT_MAX };
+	list<int> ints;
+
+};
+
+*/
+
+/*
+Problem 239. Sliding Window Maximum
+Difficulty: Hard
+Description: Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. 
+You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
+
+class Solution {
+public:
+	int get_lmax(const list<int>& l) const{
+		int max = INT_MIN;
+		for (const int& x : l){if (x>max) max = x;}
+		return max;
+	}
+
+	vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+		if (nums.size() == 0) return nums;
+		//initialize
+		int nums_size = nums.size();
+		int max = INT_MIN;
+		vector<int> window_max;
+		list<int> window(k);
+
+		//initialize window
+		auto p = window.begin();
+		for (int i =0; i <k; ++i){*(p++) = nums[i]; if (nums[i]>max) max = nums[i];}
+		window_max.push_back(max);
+
+		//slide window
+		int i = k;
+		while (i != nums_size){
+			window.erase(window.begin());
+			window.push_back(nums[i]);
+			//check new num
+			if (nums[i]> max) {max = nums[i]; window_max.push_back(max);}
+			else {
+				max = get_lmax(window); window_max.push_back(max);
+			}
+
+			++i;
+		}
+		return window_max;
+
+
+	}
+};
+*/
+
 int main() {
 
 }
