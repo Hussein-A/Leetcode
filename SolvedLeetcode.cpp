@@ -281,6 +281,137 @@ public:
 };
 */
 
+/*
+Problem 402. Remove K Digits
+Difficulty: Medium
+Description: Given a non-negative integer num represented as a string,
+remove k digits from the number so that the new number is the smallest possible. 
+
+class Solution {
+public:
+	//idea is to go through the number removing only 1 digit at a time to minimize the resulting number, and continuing this
+	//until the number of digits to remove is 0.
+
+	void removedigit(string& num){
+		//if possible to remove a leading digit and a 0, keep removing until remainder does not have a leading 0
+		if (num.size()>1 && num[1]=='0') {
+			int i = 0;
+			while (num[i+1]=='0'){++i;}
+			num.erase(num.begin(), num.begin()+i+1);
+			if (num.size()==0) num = "0";
+			return;
+		}
+		else{
+			if (num.size()==1) {num = "0"; return;}
+			auto p = num.begin();
+			while (p != num.end()-1){
+				if (*p <= *(p+1)) ++p;
+				else {num.erase(p); return;}
+			}
+			num.erase(p);
+		}
+
+
+	}
+
+	string removeKdigits(string num, int k) {
+		if (k == 0) return num;
+		else if (num.size() ==0) {num ="0"; return num;}
+
+		while (k!=0){removedigit(num); --k;}
+		return num;
+	}
+};
+*/
+
+/*
+Problem 61. Rotate List
+Difficulty: Medium
+Description: Given a linked list, rotate the list to the right by k places, where k is non-negative.
+
+
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+
+class Solution {
+public:
+	inline int mod(int a, int b) { int ret = a % b; return ret >= 0 ? ret : ret + b; }
+
+	ListNode* rotateRight(ListNode* head, int k) {
+		if (!head) return head;
+
+		//count how many elements list has
+		auto p = head; int count = 1;
+		while (p->next) { p = p->next; ++count; }
+
+		vector<int> copy(count); int i = 0;
+		for (p = head; p != NULL; p = p->next) { copy[i++] = p->val; }
+
+		for (int i = 0; i < count; ++i) {
+			p = head; for (int j = 0; j < mod(i + k, count); ++j) { p = p->next; }
+			p->val = copy[i];
+		}
+		return head;
+	}
+};
+*/
+
+/*
+Problem 326. Power of Three
+Difficulty: Easy
+Description: Given an integer, write a function to determine if it is a power of three.
+
+class Solution {
+public:
+	bool isPowerOfThree(int n) {
+		if(n%3 != 0 && n !=1) return false;
+
+		for (int i = 0; pow(3,i)<=n; ++i){if (pow(3,i)==n) return true;}
+		return false;
+	}
+};
+*/
+
+/*
+Problem 19. Remove Nth Node From End of List
+Difficulty: Medium
+Description: Given a linked list, remove the n-th node from the end of list and return its head.
+
+class Solution {
+public:
+	ListNode* removeNthFromEnd(ListNode* head, int n) {
+		n-=1;
+		if (head == NULL) return head;
+
+		//do the gymanstics in a more comfortable container (vector)
+		ListNode* p = head;
+		vector<int> list_copy;
+		while(p){list_copy.push_back(p->val); p=p->next;}
+		reverse(list_copy.begin(), list_copy.end());
+		list_copy.erase(list_copy.begin()+n);
+		reverse(list_copy.begin(), list_copy.end());
+
+		//translate changes back into the list
+		if (list_copy.size() == 0) {head = NULL; return head;}
+
+		p = head->next;
+		ListNode* newhead = p;
+		head->next = NULL; //sever the "head" to reduce list size by one
+
+		for (int x : list_copy){p->val = x; p =p->next;}
+		return newhead;
+
+
+
+
+	}
+};
+*/
+
 int main() {
 
 }
