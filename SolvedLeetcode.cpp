@@ -412,6 +412,320 @@ public:
 };
 */
 
+/*
+Problem 876. Middle of Linked List
+Difficulty: Easy
+Description: Given a non-empty, singly linked list with head node head, return a middle node of linked list.
+If there are two middle nodes, return the second middle node.
+
+class Solution {
+public:
+	ListNode* middleNode(ListNode* head) {
+		int size = 0;
+		auto p = head;
+		while(p){
+			p = p->next;
+			++size;
+		}
+		p = head;
+		for (int j = 0; j< size/2; ++j){p =p->next;}
+		return p;
+	}
+};
+*/
+
+/*
+Problem 445. Add Two Numbers II
+Difficulty: Medium
+Description: You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. 
+Add the two numbers and return it as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+class Solution {
+public:
+	ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+		if (l1 == NULL || l2 == NULL){return l1 == NULL ? l1 : l2;}
+
+		vector<int> digits1;
+		vector<int> digits2;
+
+		//convert into vector for ease of use
+		auto p1 = l1; auto p2 = l2;
+		while(p1){digits1.push_back(p1->val); p1=p1->next;}
+		while(p2){digits2.push_back(p2->val); p2 = p2->next;}
+
+		reverse(digits1.begin(), digits1.end());
+		reverse(digits2.begin(),digits2.end());
+
+		//make both the same size with any extra entries being zero if smaller
+		int size = digits1.size();
+		if (digits1.size() != digits2.size()){size  = digits1.size() > digits2.size() ? digits1.size() : digits2.size(); digits1.resize(size+1); digits2.resize(size+1);}
+		else {digits1.resize(size+1); digits2.resize(size+1);}
+		vector<int> result(digits1.size());
+
+		//now add as in elementary school, digit by digit, carrying over the ones
+		int sum = 0;
+		for (int i = 0; i< digits1.size(); ++i){
+			sum = digits1.at(i) + digits2.at(i);
+			if (sum>= 10) {sum -=10;  ++digits1.at(i+1);} //carry over the 1
+			result.at(i) = sum;
+		}
+		reverse(result.begin(), result.end());
+		if(result[0]==0) result.erase(result.begin());
+
+		//convert to a list
+		auto list_result = new ListNode(0);
+		auto head = list_result;
+		for (int i =0; i<result.size(); ++i){
+			list_result->val = result[i];
+			if(i!=result.size()-1){list_result->next = new ListNode(0); list_result = list_result->next;}
+		}
+		return head;
+	}
+};
+*/
+
+/*
+Problem 897. Increasing Order Search Tree
+Difficulty: Easy
+Description: Given a tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, 
+and every node has no left child and only 1 right child.
+
+class Solution {
+public:
+	TreeNode* head;
+	TreeNode* result = head = new TreeNode(0);
+
+
+	void tree_vector (TreeNode* root){
+		if (root->left != NULL){tree_vector(root->left);}
+		if (root->right != NULL){result->val = root->val; result->right = new TreeNode(0); result= result->right; tree_vector(root->right); return;}
+		result->val = root->val; result->right = new TreeNode(0); result = result->right;
+		return ;
+	}
+
+	void delete_rightmost(TreeNode* root){
+		TreeNode* curr = root;
+		TreeNode* parent = root;
+
+		while(curr->right != NULL){
+			parent = curr;
+			curr=curr->right;
+		}
+		parent->right  =NULL;
+
+	}
+
+	TreeNode* increasingBST(TreeNode* root) {//do by recursion
+		tree_vector(root);
+
+		//delete rightmost element (the added 0)
+		delete_rightmost(head);
+
+		return head;
+	}
+
+};
+*/
+
+/*
+Problem 206. Reverse Linked List
+Difficulty: Easy
+Description: Reverse a singly linked list.
+
+class Solution {
+public:
+	ListNode* reverseList(ListNode* head) {
+		if (head == NULL) return head;
+
+		ListNode* curr = head->next;
+		ListNode* prev = head;
+		head->next = NULL;
+
+		while(curr){
+			ListNode* temp = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = temp;
+		}
+
+		return prev;
+	}
+};
+*/
+
+/*
+Problem 92. Reverse Linked List II
+Difficulty: Medium
+Description: Reverse a linked list from position m to n. Do it in one-pass.
+Note: 1 <= m <= n <= length of list.
+
+class Solution {
+public:
+	ListNode* reverseList(ListNode* head) {
+		if (head == NULL) return head;
+
+		ListNode* curr = head->next;
+		ListNode* prev = head;
+		head->next = NULL;
+
+		while(curr){
+			ListNode* temp = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = temp;
+		}
+
+		return prev;
+	}
+
+	ListNode* reverseBetween(ListNode* head, int m, int n) {
+		ListNode* before_cut = new ListNode{0}; before_cut->next = head;
+		ListNode* dummy = before_cut;
+		ListNode* start = head;
+		ListNode* end;
+		ListNode* after_cut;
+
+		//increment to cut position
+		for (int i = 1; i< m; ++i){
+			before_cut = before_cut->next;
+			start = start->next;
+		}
+
+		//increment to end cut position
+		end = start;
+		for (int i = 1; i < n-m+1; ++i){
+			end = end->next;
+		}
+
+		after_cut= end->next;
+		end->next = NULL;
+
+		before_cut->next = reverseList(start);
+		start->next = after_cut;
+
+		return dummy->next;
+
+
+
+
+
+	}
+};
+*/
+
+/*
+Problem 83. Remove Duplicates from Sorted List
+Difficulty: Easy
+Description: Given a sorted linked list, delete all duplicates such that each element appear only once.
+
+class Solution {
+public:
+	ListNode* deleteDuplicates(ListNode* head) {
+		if (head == NULL) return head;
+
+		ListNode* curr = head;
+		while (curr->next != NULL){
+			if (curr->val == curr->next->val){
+				auto p = curr->next;
+				curr-> next = curr->next->next;
+				delete p;
+				continue;
+			}
+			curr = curr->next;
+		}
+		return head;
+	}
+};
+*/
+
+/*
+Problem: 82. Remove Duplicates from Sorted List II
+Difficulty: Easy
+Description: Given a sorted linked list, delete all nodes that have duplicate numbers, 
+leaving only distinct numbers from the original list.
+
+class Solution {
+public:
+	ListNode* deleteDuplicates(ListNode* head) {
+		if (head == NULL) return head;
+		ListNode* dummy = new ListNode{0};
+		dummy->next = head;
+
+		ListNode* prev = dummy;
+		ListNode* curr = head;
+		while (curr->next != NULL){
+			if (curr->val == curr->next->val){
+				int duplicate = curr->val;
+				while (curr && curr->val == duplicate){
+					auto temp = curr;
+					curr= curr->next;
+					delete temp;
+				}
+
+				prev->next = curr;
+				if (curr == NULL) break;
+				continue;
+			}
+			prev = curr;
+			curr = curr->next;
+		}
+
+
+		//remember the case of 1,1,1,1
+		return dummy->next;
+	}
+};
+*/
+
+/*
+Problem 100. Same Tree
+Difficulty: Easy
+Description: Given two binary trees, write a function to check if they are the same or not.
+Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
+
+class Solution {
+public:
+	bool isSameTree(TreeNode* p, TreeNode* q) {
+		//idea: do by recursion
+		if ((p == NULL || q == NULL)&& !(p == NULL && q == NULL)) return false; //check first if both nodes are checkable
+		else if (!(p && q)) return true;
+		else if (p->val != q->val) return false;
+		else {
+			return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+		}
+
+	}
+};
+*/
+
+/*
+Problem 704. Binary Search
+Difficulty: Easy
+Description: Given a sorted (in ascending order) integer array nums of n elements and a target value, write a function to search target in nums.
+If target exists, then return its index, otherwise return -1.
+
+class Solution {
+public:
+	inline int middle(int left, int right){
+		return (right-left)/2+left;
+	}
+
+	int search(vector<int>& nums, int target) {
+		int left = 0;
+		int right = nums.size()-1;
+
+		while (left!=right && left < right){
+			int mid = middle(left, right);
+			if (nums[mid] == target) return mid;
+			else if (target > nums[mid]){left = ++mid; continue;}
+			else {right = --mid; continue;}
+		}
+		if (nums[left] == target) return left;
+		return -1;
+	}
+};
+*/
+
 int main() {
 
 }
