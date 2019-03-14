@@ -752,6 +752,23 @@ public:
 
 */
 
+/*
+Problem 231. Power of Two
+Difficulty: Easy
+Description: Given an integer, write a function to determine if it is a power of two.
+class Solution {
+public:
+	bool isPowerOfTwo(int n) {
+		if (n == 0) return false;
+
+		for (int exp = 0; pow(2,exp)<= n;++exp){
+			if (pow(2,exp) == n) return true;
+		}
+		return false;
+	}
+};
+*/
+
 int main() {
 
 }
