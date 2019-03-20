@@ -766,7 +766,7 @@ public:
 */
 
 /*
-Problem 231. Populating Next Right Pointers in Each Node
+Problem 116. Populating Next Right Pointers in Each Node
 Difficulty: Medium
 Decription: You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. 
 The binary tree has the following definition: (See attached readme for node definition, added next pointer only difference)
