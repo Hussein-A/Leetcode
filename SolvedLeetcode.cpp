@@ -802,6 +802,94 @@ public:
 
 */
 
+/*
+Problem 117. Populating Next Right Pointers in Each Node II
+Difficulty: Medium
+Description: Same as above except now the tree may not be perfect.
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if (root == NULL) return root;
+        root->next = NULL;
+        
+        queue<Node*> curr_level;
+        queue<Node*> next_level;
+        if (root->left) next_level.push(root->left); 
+        if (root->right) next_level.push(root->right);
+        
+        while(!next_level.empty()){
+            curr_level.swap(next_level); //now jumping into next level
+            Node* temp;
+            
+            while(!curr_level.empty()){
+                temp = curr_level.front(); curr_level.pop();
+                if (curr_level.empty()) temp->next = NULL;
+                else temp->next = curr_level.front();
+                
+                if (temp->left) next_level.push(temp->left);
+                if (temp->right) next_level.push(temp->right);
+            }
+        }
+        return root;
+        
+        
+    }
+};
+*/
+
+/*
+Problem 148. Sort List
+Difficulty: Medium
+Description: Sort a linked list in O(n log n) time using constant space complexity.
+class Solution {
+public:
+    ListNode* middle(ListNode* head){
+        ListNode *slow = head, *fast = head -> next;
+        while (fast && fast -> next) {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+        return slow;
+    }
+    
+    void merge(ListNode* head1, ListNode* head2){
+        queue<int> first_half;
+        queue<int> second_half;
+        
+        //fill queues
+        ListNode* temp = head1; while(temp->next){first_half.push(temp->val); temp= temp->next;}
+        first_half.push(temp->val);
+        
+        //connect first list to second (will return the combined sorted list later)
+        temp->next = head2; 
+        temp = head2; while(temp){second_half.push(temp->val); temp = temp->next;}
+        
+        temp = head1;
+        while(!(first_half.empty() || second_half.empty())){
+            if (first_half.front() <= second_half.front()){temp->val = first_half.front(); first_half.pop(); temp = temp->next;}
+            else {temp->val = second_half.front(); second_half.pop(); temp = temp->next;}
+        }
+        while (!first_half.empty()){temp->val = first_half.front(); first_half.pop(); temp = temp->next;}
+        while(!second_half.empty()){temp->val = second_half.front(); second_half.pop(); temp = temp->next;}
+    }
+    
+    
+    void mergesort(ListNode* head){
+        if(head && head->next){
+            ListNode* mid = middle(head);
+            ListNode* temp = mid->next; mid->next = NULL;// breaking into two halves to merge later
+            mergesort(head); mergesort(temp);
+            merge(head, temp);
+        }
+    }
+    ListNode* sortList(ListNode* head) {
+        mergesort(head);
+        return head;
+    }
+};
+*/
+
+
 int main() {
 
 }
