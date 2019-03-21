@@ -889,6 +889,124 @@ public:
 };
 */
 
+/*
+Problem 21. Merge Two Sorted Lists
+Difficulty: Easy
+Description: Merge two sorted linked lists and return it as a new list. 
+The new list should be made by splicing together the nodes of the first two lists.
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if (!l1) return l2;
+        else if (!l2) return l1;
+        
+        queue<int> first;
+        queue<int> second;
+        
+        //copy contents into the queue first and second
+        ListNode* temp = l1; while(temp->next){first.push(temp->val); temp = temp->next;}
+        //connect the two lists
+        first.push(temp->val); temp->next = l2;
+        temp = l2; while (temp){second.push(temp->val); temp = temp->next;}
+        temp = l1;
+        while(!(first.empty() || second.empty())){
+            if (first.front() <= second.front()) {temp->val = first.front(); first.pop();}
+            else {temp->val = second.front(); second.pop();}
+            temp = temp->next;
+        }
+        //copy over remnants
+        while(!first.empty()){temp->val = first.front(); first.pop(); temp= temp->next;}
+        while(!second.empty()){temp->val = second.front(); second.pop(); temp = temp->next;}
+        return l1;
+    }
+};
+*/
+
+/*
+Problem 21. Merge k Sorted Lists
+Difficulty: Hard
+Description: Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+class Solution {
+public:
+    ListNode* merge(ListNode* l1, ListNode* l2) {
+    	//idea is to use merge two sorted lists technique
+        if (!l1) return l2;
+        else if (!l2) return l1;
+        
+        queue<int> first;
+        queue<int> second;
+        
+        //copy contents into the queue first and second
+        ListNode* temp = l1; while(temp->next){first.push(temp->val); temp = temp->next;}
+        //connect the two lists
+        first.push(temp->val); temp->next = l2;
+        temp = l2; while (temp){second.push(temp->val); temp = temp->next;}
+        temp = l1;
+        while(!(first.empty() || second.empty())){
+            if (first.front() <= second.front()) {temp->val = first.front(); first.pop();}
+            else {temp->val = second.front(); second.pop();}
+            temp = temp->next;
+        }
+        //copy over remnants
+        while(!first.empty()){temp->val = first.front(); first.pop(); temp= temp->next;}
+        while(!second.empty()){temp->val = second.front(); second.pop(); temp = temp->next;}
+        return l1;
+    }
+
+    
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        int last_elem_pos = lists.size()-1;
+        if (last_elem_pos ==-1) return NULL;
+        else if (last_elem_pos == 0) return lists[0];
+        
+        //do a snowball of two list merging. Merging the first with second with the second being
+        //the merged of two and repeat with list2 and list3
+        for (int i = 0; i < last_elem_pos; ++i){
+            lists[i+1] = merge(lists[i+1], lists[i]);
+        }
+        return lists[last_elem_pos];
+    }
+};
+*/
+
+/*
+Problem 102. Binary Tree Level Order Traversal
+Difficulty: Medium
+Description: Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> order;
+        queue<TreeNode*> curr_level;
+        queue<TreeNode*> next_level;
+        
+        if (!root) return order;
+        else next_level.push(root);
+
+        
+        while(!next_level.empty()){
+            swap(curr_level, next_level);
+            vector<int> level {};
+            
+            while(!curr_level.empty()){
+                TreeNode*& node = curr_level.front();
+                if (node->left) next_level.push(node->left);
+                if (node->right) next_level.push(node->right);
+                level.push_back(node->val); curr_level.pop();
+            }
+            order.push_back(level);
+        }
+        return order;
+    }
+};
+*/
+
+/*
+
+*/
 
 int main() {
 
