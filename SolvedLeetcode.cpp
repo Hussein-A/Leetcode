@@ -1005,7 +1005,133 @@ public:
 */
 
 /*
+Problem 103. Binary Tree Zigzag Level Order Traversal
+Difficulty: Medium
+Description: Given a binary tree, return the zigzag level order traversal of its nodes' values. 
+(ie, from left to right, then right to left for the next level and alternate between).
 
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> order;
+        queue<TreeNode*> curr_level;
+        queue<TreeNode*> next_level;
+        
+        if (!root) return order;
+        else next_level.push(root);
+
+        bool zigorzag = true;
+        while(!next_level.empty()){
+            swap(curr_level, next_level);
+            vector<int> level {};
+            zigorzag = zigorzag ? false : true;
+            
+            while(!curr_level.empty()){
+                TreeNode*& node = curr_level.front();
+                if (node->left) next_level.push(node->left);
+                if (node->right) next_level.push(node->right);
+                level.push_back(node->val); curr_level.pop();
+            }
+            if (zigorzag) reverse(level.begin(), level.end());
+            order.push_back(level);
+        }
+        return order;
+    }
+};
+
+*/
+
+/*
+Problem. 147 Insertion Sort List
+Difficulty: Medium
+Description: Sort a linked list using insertion sort.
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL) return head;
+        
+        ListNode* curr = head->next;
+        ListNode* prev = head;
+        head->next = NULL;
+        
+        while(curr){
+            ListNode* temp = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        
+        return prev;
+    }
+    
+    ListNode* insertionSortList(ListNode* head) {
+        if (!head) return head;
+        ListNode* tail = new ListNode{head->val};
+        
+        ListNode* curr = head->next;
+        ListNode* temp;
+        ListNode* prev;
+        while(curr){
+            temp = tail;
+            prev = temp;
+            while (temp && curr->val < temp->val){
+                prev = temp;
+                temp = temp->next;
+            }
+            if (prev == temp){//case when element is inserted at the very beginning (ie. the end of the real sorted list)
+                tail = new ListNode {curr->val};
+                tail->next = prev;
+            }
+            else{
+                prev->next = new ListNode{curr->val};
+                prev->next->next = temp;
+            }
+            curr = curr->next;
+        }
+        
+        //delete old list
+        curr = head->next;
+        prev = head;
+        while (curr){
+            delete prev;
+            prev = curr;
+            curr = curr->next;
+        }
+        delete prev;
+        
+        ListNode* sorted = reverseList(tail);
+        return sorted;
+        
+    }
+};
+
+*/
+
+/*
+Problem. 263 Ugly Number
+Difficulty: Easy
+Description: Write a program to check whether a given number is an ugly number.
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5
+
+class Solution {
+public:
+    bool isUgly(int num) {
+        if (num == 0) return false;
+        else if (num == 1) return true;
+        //find highest power of 2, 3 and 5 dividing num
+        // divide the num by the product of those, if the remainder isnt 1 then is not an ugly number
+        
+        //get highest power of 2,3,5 remainder must be 1
+        
+        while (num%2 == 0){num /=2; }
+        while(num%3 == 0){num /=3; }
+        while (num%5 == 0) {num/= 5; }
+        
+        if (num != 1) return false;
+        else return true;
+    }
+};
 */
 
 int main() {
