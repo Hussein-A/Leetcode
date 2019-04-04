@@ -1192,6 +1192,59 @@ public:
 };
 */
 
+/*
+Problem 169. Majority Element
+Difficulty: Easy
+Description: Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+You may assume that the array is non-empty and the majority element always exist in the array.
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        //hash instead, pick the bucket with the largest size.
+        unordered_map<int,int> hash;
+        
+        for (int x : nums){++hash[x];}
+        
+        //find max element
+        //initialize
+        pair<int, int> max_pos (nums[0], hash[nums[0]]);
+        for (auto p : hash){
+            if (p.second> max_pos.second) max_pos = p;
+        }
+        return max_pos.first;
+    }
+};
+
+*/
+
+/*
+Problem 229. Majority Element II
+Difficulty: Medium
+Description: Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+Note: The algorithm should run in linear time and in O(1) space.
+
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        vector<int> result;
+        if (nums.size()==0) return result;
+        int min_bound = nums.size()/3;
+        
+        //use hash
+        unordered_map<int, int> mymap;
+        
+        for (const int& x : nums){++mymap[x];}
+        
+        for (auto p : mymap){
+            if (p.second > min_bound) result.push_back(p.first);
+        }
+        sort(result.begin(), result.end());
+        return result;
+    }
+};
+*/
+
 int main() {
 
 }
