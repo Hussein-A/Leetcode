@@ -1134,6 +1134,64 @@ public:
 };
 */
 
+/*
+Problem 26. Remove Duplicates from Soprted Array
+Difficulty: Easy
+Description: Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.size() == 0) return 0;
+        
+        for (int i =1; i<nums.size(); ++i ){
+            if (nums[i] == nums[i-1]){
+                int& first_dup = i;
+                int last_dup=i;
+                int j = i+1;
+                while(j< nums.size() && nums[j]== nums[first_dup]){++last_dup; ++j;}
+                nums.erase(nums.begin()+first_dup, nums.begin()+last_dup+1);
+            }
+        }
+        return nums.size();
+        
+    }
+};
+*/
+
+/*
+Problem 204. Count Primes
+Difficulty: Easy
+Description: Count the number of prime numbers less than a non-negative number, n.
+
+class Solution {
+public:
+    	int countPrimes(int n) {
+            if (n == 0 || n == 1) return 0;
+	        //sieve of erostathene
+            int size = n+1;
+	        vector<bool> nums(size, true);
+
+	        //0 and 1 are not primes
+	        nums[0] =nums[1] = false;
+            	nums[size-1] = false;
+
+	        //remove all products of primes
+	        int curr_prime = 2;
+	        while (curr_prime <= n / 2) {
+		        for (int multiple = 2; multiple <= n / curr_prime; ++multiple) { nums[multiple * curr_prime] = false; }
+		        //find next prime
+		        bool found_next = false;
+		        int i = curr_prime + 1;
+		        while (!found_next) { if (nums[i]) { curr_prime = i; found_next = true; } ++i; }
+	        }
+
+	        return count(nums.begin(), nums.end(), true);
+        }
+};
+*/
+
 int main() {
 
 }
