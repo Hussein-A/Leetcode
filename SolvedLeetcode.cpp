@@ -1245,6 +1245,59 @@ public:
 };
 */
 
+/*
+Problem 509. Fibonacci Number
+Difficulty: Easy
+Description: The Fibonacci numbers, commonly denoted F(n) form a sequence, 
+called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. 
+
+class Solution {
+public:
+    int fib(int N) {
+        if (N == 0) return 0;
+        if (N == 1 || N == 2) return 1;
+        
+        return fib(N-1) +fib(N-2);
+    }
+};
+*/
+
+/*
+Problem 75. Sort Colours (Dutch National Flag)
+Difficulty: Medium
+Description: Given an array with n objects colored red, white or blue, sort them in-place so that objects of the same color 
+are adjacent, with the colors in the order red, white and blue.
+Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
+
+Note: You are not suppose to use the library's sort function for this problem.
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        if (nums.size() == 0) return;
+        //use similiar idea to quicksort pivots
+        vector<int>::iterator first1 = nums.begin();
+        vector<int>::iterator curr = nums.begin();
+        
+        while (curr != nums.end()){
+            if (*curr == 0){swap(*curr, *first1); ++first1;}
+            ++curr;
+        }
+        //do again but this time imagine you have an array of only 1s and 2s
+        curr = nums.begin();
+        while (curr != nums.end() &&*curr == 0) ++curr;
+        vector<int>::iterator first2 = curr;
+        
+        while (curr != nums.end()){
+            if (*curr == 1){swap(*curr, *first2); ++first2;}
+            ++curr;
+        }
+        
+        
+    }
+};
+*/
+
 int main() {
 
 }
