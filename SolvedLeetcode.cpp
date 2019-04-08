@@ -1359,6 +1359,26 @@ public:
     }
 };
 */
+
+/*
+Problem 217. Contains Duplicate
+Difficulty: Easy
+Description: Given an array of integers, find if the array contains any duplicates.
+Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int,int> mymap;
+        for (const int& x : nums) ++mymap[x];
+        
+        for (auto it : mymap) if ((it).second > 1) return true;
+        
+        return false;
+    }
+};
+*/
+
 int main() {
 
 }
