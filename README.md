@@ -36,7 +36,7 @@ TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  
 ## Statistics  
 For the most up to date stats please see my leetcode account linked at the top of the page.  
-Problems Solved (32) by Difficulty:  
-Easy (19): 160, 557, 237, 125, 66, 20, 155, 326, 876, 897, 206, 83, 82, 100, 704, 141, 231, 21, 263    
-Medium (11): 402, 61, 19, 445, 92, 116, 117, 148, 102, 103, 147  
+Problems Solved (56) by Difficulty:  
+Easy (38): (Sample) 160, 557, 237, 125, 66, 20, 155, 326, 876, 897, 206, 83, 82, 100, 704, 141, 231, 21, 263    
+Medium (16): (Sample )402, 61, 19, 445, 92, 116, 117, 148, 102, 103, 147  
 Hard (2): 239, 21  
