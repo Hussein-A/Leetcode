@@ -1683,6 +1683,35 @@ public:
 };
 */
 
+/*
+Problem 69. Sqrt(x)
+Difficulty: Easy
+Description: Implement int sqrt(int x).
+Compute and return the square root of x, where x is guaranteed to be a non-negative integer.
+Since the return type is an integer, the decimal digits are truncated and only the integer part of the result is returned.
+
+class Solution {
+public:
+    int mySqrt(int n) {
+        int low = 1, high = n / 2;//root will always be less than half as long as 4<=n
+	    int mid;
+	    while (low < high) {
+		    mid = low + (high - low) / 2;
+		    if (mid == n) return mid;
+		    else if (mid < n/mid){low = mid + 1;}
+		    else { high = mid - 1; }
+	    }
+	    if (low > n/low) {
+		    return low - 1;
+	    }
+	    else if ((low + 1) <= n/(low + 1)) {
+		    return low + 1;
+	    }
+        else return low;
+    }
+};
+*/
+
 int main() {
 
 }
