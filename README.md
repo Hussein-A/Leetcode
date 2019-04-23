@@ -1,18 +1,47 @@
 # Leetcode
 Leetcode Link: https://leetcode.com/h42ahmad/  
-A repository containing solved Leetcode problems. Problems are placed in a single cpp file and enclosed in a comment. Their respective number is placed above along with a short tag/name of the problem as well as the associated difficulty. Problems are not sorted in any particular order although below you will find general stats (problems solved, difficulty, etc).
+A repository containing solved Leetcode problems. Problems are numbered and placed according to difficulty and then according to the language used to solve the problem. Their respective number is placed just before the title. General descriptions of the problem are contained as enclosed comments in the files themselves. Moreover statistics regarding the problem (ie. runtime, memory usage, percentile of them) are given when possible (sometimes leetcode does not keep such data after a period of time). Below you will find an example
+of such a file.   
+
+Note: code contained in these files (such as the code below) is not meant to be stand alone, they are meant to be used directly as the code accepted by leetcode. That is to verify such a solution simply go to the mentioned problem on leetcode and copy and paste the solution here into leetcode.
 
 Example   
-/*  
-Problem 239. Sliding Window Maximum  
-Difficulty: Hard  
-Description: Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. 
-You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.  
-class Solution {  
-public:. . .  
-};  
-*/  
+```c++
+/*
+Given a binary tree, return the level order traversal of its nodes' values. 
+(ie, from left to right, level by level).
 
+Runtime: 8 ms, faster than 100.00% of C++ online submissions for Binary Tree Level Order Traversal.   
+Memory Usage: 13.9 MB, less than 48.30% of C++ online submissions for Binary Tree Level Order Traversal.
+*/
+
+class Solution {
+public:
+	vector<vector<int>> levelOrder(TreeNode* root) {
+		vector<vector<int>> order;
+		queue<TreeNode*> curr_level;
+		queue<TreeNode*> next_level;
+
+		if (!root) return order;
+		else next_level.push(root);
+
+
+		while (!next_level.empty()) {
+			swap(curr_level, next_level);
+			vector<int> level{};
+
+			while (!curr_level.empty()) {
+				TreeNode*& node = curr_level.front();
+				if (node->left) next_level.push(node->left);
+				if (node->right) next_level.push(node->right);
+				level.push_back(node->val); curr_level.pop();
+			}
+			order.push_back(level);
+		}
+		return order;
+	}
+};
+```
 ## Definitions for Data Structures Used:
  /*
  Definition for singly-linked list.  
@@ -36,7 +65,7 @@ TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  
 ## Statistics  
 For the most up to date stats please see my leetcode account linked at the top of the page.  
-Problems Solved (56) by Difficulty:  
-Easy (38): (Sample) 160, 557, 237, 125, 66, 20, 155, 326, 876, 897, 206, 83, 82, 100, 704, 141, 231, 21, 263    
-Medium (16): (Sample )402, 61, 19, 445, 92, 116, 117, 148, 102, 103, 147  
-Hard (2): 239, 21  
+Problems Solved (68) by Difficulty:  
+Easy (42) 
+Medium (24)
+Hard (2)
