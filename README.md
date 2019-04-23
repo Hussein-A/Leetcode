@@ -43,17 +43,15 @@ public:
 };
 ```
 ## Definitions for Data Structures Used:
- /*
- Definition for singly-linked list.  
+```c++
+ //Definition for singly-linked list.  
  struct ListNode {  
  int val;  
  ListNode *next;  
  ListNode(int x) : val(x), next(NULL) {}  
  };
- */
 
-/*
-Definition for a binary tree node.  
+//Definition for a binary tree node.  
 //(Do note that one variation of this is to include a TreeNode* next pointer pointing to the rightwards neighbour)  
 struct TreeNode {  
 int val;  
@@ -61,11 +59,11 @@ TreeNode *left;
 TreeNode *right;  
 TreeNode(int x) : val(x), left(NULL), right(NULL) {}  
 };  
- */  
+```
  
 ## Statistics  
 For the most up to date stats please see my leetcode account linked at the top of the page.  
 Problems Solved (68) by Difficulty:  
-Easy (42) 
-Medium (24)
+Easy (42)   
+Medium (24)   
 Hard (2)
